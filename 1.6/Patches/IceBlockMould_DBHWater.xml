@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    Hooks the MO ice block mould (DankPyon_IceBlock_Maker) into the DBH plumbing
+    grid as a water consumer.
+
+    DBH consumer fixtures (sinks, basins, even the IceWell) attach to the grid
+    via mode "Sewage" - that's the side fixtures actually share with water
+    towers through DBH's internal sewage<->water net merging. Putting the mould
+    on mode "Water" (the tower side) leaves it on a net with no water towers
+    and PullWater always returns 0.
+
+    CompWaterTrader registers the mould in the network's WaterUsers list so
+    DBH's water grid overlay and stats recognise it as a consumer.
+  -->
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Dubs Bad Hygiene</li>
+      <li>Medieval Overhaul</li>
+    </mods>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="DankPyon_IceBlock_Maker"]/comps</xpath>
+      <value>
+        <li Class="DubsBadHygiene.CompProperties_Pipe">
+          <mode>Sewage</mode>
+        </li>
+        <li Class="DubsBadHygiene.CompProperties_WaterTrader">
+          <WaterPerTick>0.001</WaterPerTick>
+        </li>
+        <li Class="PipesForMO.CompProperties_PipeWaterIceFill">
+          <ingredientDef>DankPyon_Waterskin</ingredientDef>
+          <processDef>DankPyon_IceBlockProcess</processDef>
+          <waterPerIngredient>5</waterPerIngredient>
+          <ticksPerCheck>250</ticksPerCheck>
+          <maxFillPerCheck>5</maxFillPerCheck>
+          <requireFreezing>true</requireFreezing>
+        </li>
+      </value>
+    </match>
+  </Operation>
+
+</Patch>

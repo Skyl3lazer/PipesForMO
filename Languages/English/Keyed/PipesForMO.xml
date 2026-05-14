@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PipesForMO.PipeWaterFill>Pipe water</PipesForMO.PipeWaterFill>
+  <PipesForMO.NotConnected>not connected to a pipe network</PipesForMO.NotConnected>
+  <PipesForMO.NoTowers>no water tower on this network</PipesForMO.NoTowers>
+  <PipesForMO.WaterAvailable>{0} L available</PipesForMO.WaterAvailable>
+  <PipesForMO.TooWarm>too warm to freeze</PipesForMO.TooWarm>
+</LanguageData>

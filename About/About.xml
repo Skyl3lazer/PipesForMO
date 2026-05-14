@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+
+ <packageId>Skyl3lazer.PipesForMO</packageId>
+ <name>Pipes for Medieval Overhaul</name>
+ <author>Skyl3lazer</author>
+ <supportedVersions>
+ <li>1.6</li>
+ </supportedVersions>
+ <description>Adds functionality for pipe mods such as DBH to pipe into additional MO and MO mod buildings.</description>
+ <modVersion>1.0</modVersion>
+ <modDependencies>
+  <li>
+    <packageId>brrainz.harmony</packageId>
+    <displayName>Harmony</displayName>
+    <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+  </li>
+    <li>
+    <packageId>Dubwise.DubsBadHygiene</packageId>
+    <displayName>Dubs Bad Hygiene</displayName>
+    <steamWorkshopUrl>steam://url/CommunityFilePage/836308268</steamWorkshopUrl>
+  </li>
+      <li>
+    <packageId>DankPyon.Medieval.Overhaul</packageId>
+    <displayName>Medieval Overhaul</displayName>
+    <steamWorkshopUrl>steam://url/CommunityFilePage/3219596926</steamWorkshopUrl>
+  </li>
+  <li>
+    <packageId>syrchalis.processor.framework</packageId>
+    <displayName>[SYR] Processor Framework</displayName>
+    <steamWorkshopUrl>steam://url/CommunityFilePage/3210544395</steamWorkshopUrl>
+  </li>
+</modDependencies>
+<loadAfter>
+  <li>brrainz.harmony</li>
+  <li>syrchalis.processor.framework</li>
+  <li>Dubwise.DubsBadHygiene</li>
+  <li>DankPyon.Medieval.Overhaul</li>
+</loadAfter>
+</ModMetaData>
