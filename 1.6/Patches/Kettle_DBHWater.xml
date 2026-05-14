@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    DBH for Medieval: Boiler pot (ES_Kettle)
+    Adds DBH pipe connectivity and auto-fills CompHotWaterStorage from
+    the connected DBH water network.
+  -->
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Dubs Bad Hygiene</li>
+      <li>DBH for Medieval</li>
+    </mods>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="ES_Kettle"]/comps</xpath>
+      <value>
+        <li Class="DubsBadHygiene.CompProperties_Pipe">
+          <mode>Sewage</mode>
+        </li>
+        <li Class="DubsBadHygiene.CompProperties_WaterTrader">
+          <WaterPerTick>0.001</WaterPerTick>
+        </li>
+        <li Class="PipesForMO.CompProperties_PipeHotWaterStorageFill">
+          <ticksPerCheck>60</ticksPerCheck>
+          <maxPullPerCheck>30</maxPullPerCheck>
+          <onlyWhenLow>true</onlyWhenLow>
+          <respectRefillMode>true</respectRefillMode>
+          <pushedWaterTemperature>25</pushedWaterTemperature>
+        </li>
+      </value>
+    </match>
+  </Operation>
+
+</Patch>

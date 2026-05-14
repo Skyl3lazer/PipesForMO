@@ -25,16 +25,12 @@
     <displayName>Medieval Overhaul</displayName>
     <steamWorkshopUrl>steam://url/CommunityFilePage/3219596926</steamWorkshopUrl>
   </li>
-  <li>
-    <packageId>syrchalis.processor.framework</packageId>
-    <displayName>[SYR] Processor Framework</displayName>
-    <steamWorkshopUrl>steam://url/CommunityFilePage/3210544395</steamWorkshopUrl>
-  </li>
 </modDependencies>
 <loadAfter>
   <li>brrainz.harmony</li>
   <li>syrchalis.processor.framework</li>
   <li>Dubwise.DubsBadHygiene</li>
   <li>DankPyon.Medieval.Overhaul</li>
+  <li>ElderSign.DBHforMedieval</li>
 </loadAfter>
 </ModMetaData>

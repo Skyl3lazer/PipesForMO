@@ -9,4 +9,12 @@
   <PipesForMO.ProcessorFull>processor full</PipesForMO.ProcessorFull>
   <PipesForMO.TooWarm>too warm to freeze ({0})</PipesForMO.TooWarm>
   <PipesForMO.LastFill>last filled {0} waterskin(s) {1} ago</PipesForMO.LastFill>
+  <PipesForMO.Kettle.Pending>Boiler pot pipe fill: waiting for next check</PipesForMO.Kettle.Pending>
+  <PipesForMO.Kettle.NotConnected>Boiler pot pipe fill: not connected to a pipe network</PipesForMO.Kettle.NotConnected>
+  <PipesForMO.Kettle.NoTowers>Boiler pot pipe fill: no water tower on this network</PipesForMO.Kettle.NoTowers>
+  <PipesForMO.Kettle.NoWater>Boiler pot pipe fill: no water in network</PipesForMO.Kettle.NoWater>
+  <PipesForMO.Kettle.Full>Boiler pot pipe fill: storage full</PipesForMO.Kettle.Full>
+  <PipesForMO.Kettle.NotLow>Boiler pot pipe fill: storage above refill threshold</PipesForMO.Kettle.NotLow>
+  <PipesForMO.Kettle.RefillDisabled>Boiler pot pipe fill: refill mode is set to never</PipesForMO.Kettle.RefillDisabled>
+  <PipesForMO.Kettle.LastFill>Boiler pot pipe fill: pulled {0}L {1} ago</PipesForMO.Kettle.LastFill>
 </LanguageData>
