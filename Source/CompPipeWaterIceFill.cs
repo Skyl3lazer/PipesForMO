@@ -16,11 +16,24 @@ namespace PipesForMO
         public int ticksPerCheck = 250;
         public int maxFillPerCheck = 5;
         public bool requireFreezing = true;
+        public float freezeThreshold = 0f;
 
         public CompProperties_PipeWaterIceFill()
         {
             compClass = typeof(CompPipeWaterIceFill);
         }
+    }
+
+    public enum FillSkipReason
+    {
+        Pending,
+        Ok,
+        TooWarm,
+        NotConnected,
+        NoTowers,
+        NoWater,
+        ProcessorFull,
+        ResolveFailed,
     }
 
     public class CompPipeWaterIceFill : ThingComp
@@ -30,6 +43,10 @@ namespace PipesForMO
         private ThingDef cachedIngredientDef;
         private ProcessDef cachedProcessDef;
         private bool resolveFailed;
+
+        private FillSkipReason lastReason = FillSkipReason.Pending;
+        private int lastFillTick = -1;
+        private int lastFillCount;
 
         public CompProperties_PipeWaterIceFill Props => (CompProperties_PipeWaterIceFill)props;
 
@@ -59,64 +76,124 @@ namespace PipesForMO
             }
         }
 
+        private int ticksSinceCheck;
+
         public override void CompTick()
         {
             base.CompTick();
-            if (resolveFailed || pipeComp == null || processorComp == null)
-            {
-                return;
-            }
-            if (!parent.IsHashIntervalTick(Props.ticksPerCheck))
-            {
-                return;
-            }
-            TryFillFromPipe();
+            AccumulateAndMaybeFill(1);
         }
 
-        private void TryFillFromPipe()
+        public override void CompTickRare()
         {
-            if (Props.requireFreezing && parent.AmbientTemperature >= 0f)
+            base.CompTickRare();
+            AccumulateAndMaybeFill(250);
+        }
+
+        public override void CompTickLong()
+        {
+            base.CompTickLong();
+            AccumulateAndMaybeFill(2000);
+        }
+
+        private void AccumulateAndMaybeFill(int ticksDelta)
+        {
+            if (pipeComp == null || processorComp == null)
             {
                 return;
             }
+            ticksSinceCheck += ticksDelta;
+            if (ticksSinceCheck < Props.ticksPerCheck)
+            {
+                return;
+            }
+            ticksSinceCheck = 0;
+            TryFillFromPipe(force: false);
+        }
+
+        private bool TryFillFromPipe(bool force)
+        {
             ResolveDefs();
             if (resolveFailed)
             {
-                return;
+                lastReason = FillSkipReason.ResolveFailed;
+                return false;
+            }
+            if (!force && Props.requireFreezing && parent.AmbientTemperature >= Props.freezeThreshold)
+            {
+                lastReason = FillSkipReason.TooWarm;
+                return false;
             }
             PlumbingNet net = pipeComp.pipeNet;
-            if (net == null || net.WaterStorage <= 0f)
+            if (net == null)
             {
-                return;
+                lastReason = FillSkipReason.NotConnected;
+                return false;
+            }
+            if (net.WaterTowers.NullOrEmpty())
+            {
+                lastReason = FillSkipReason.NoTowers;
+                return false;
+            }
+            if (net.WaterStorage <= 0f)
+            {
+                lastReason = FillSkipReason.NoWater;
+                return false;
             }
             int spaceLeft = processorComp.SpaceLeftFor(cachedProcessDef);
             if (spaceLeft <= 0)
             {
-                return;
+                lastReason = FillSkipReason.ProcessorFull;
+                return false;
             }
             int unitsToMake = Mathf.Min(spaceLeft, Mathf.Max(1, Props.maxFillPerCheck));
-            float waterNeeded = unitsToMake * Mathf.Max(0.0001f, Props.waterPerIngredient);
+            float waterPer = Mathf.Max(0.0001f, Props.waterPerIngredient);
+            float waterNeeded = unitsToMake * waterPer;
             while (unitsToMake > 0 && waterNeeded > net.WaterStorage)
             {
                 unitsToMake--;
-                waterNeeded = unitsToMake * Props.waterPerIngredient;
+                waterNeeded = unitsToMake * waterPer;
             }
             if (unitsToMake <= 0)
             {
-                return;
+                lastReason = FillSkipReason.NoWater;
+                return false;
             }
             if (!net.PullWater(waterNeeded, out _))
             {
-                return;
+                lastReason = FillSkipReason.NoWater;
+                return false;
             }
             Thing ingredient = ThingMaker.MakeThing(cachedIngredientDef);
             ingredient.stackCount = unitsToMake;
             processorComp.AddIngredient(ingredient, cachedProcessDef);
+            lastReason = FillSkipReason.Ok;
+            lastFillTick = Find.TickManager.TicksGame;
+            lastFillCount = unitsToMake;
+            return true;
+        }
+
+        public override IEnumerable<Gizmo> CompGetGizmosExtra()
+        {
+            foreach (var g in base.CompGetGizmosExtra())
+            {
+                yield return g;
+            }
+            if (Prefs.DevMode)
+            {
+                yield return new Command_Action
+                {
+                    defaultLabel = "DEV: Force pipe fill",
+                    defaultDesc = "Bypass the freezing check and try to pull water from the DBH net once.",
+                    icon = TexCommand.DesirePower,
+                    action = () => TryFillFromPipe(force: true),
+                };
+            }
         }
 
         public override string CompInspectStringExtra()
         {
-            if (resolveFailed || pipeComp == null)
+            if (resolveFailed || pipeComp == null || processorComp == null)
             {
                 return null;
             }
@@ -124,25 +201,57 @@ namespace PipesForMO
             StringBuilder sb = new StringBuilder();
             sb.Append("PipesForMO.PipeWaterFill".Translate());
             sb.Append(": ");
-            if (net == null)
+            switch (lastReason)
             {
-                sb.Append("PipesForMO.NotConnected".Translate());
+                case FillSkipReason.NotConnected:
+                    sb.Append("PipesForMO.NotConnected".Translate());
+                    break;
+                case FillSkipReason.NoTowers:
+                    sb.Append("PipesForMO.NoTowers".Translate());
+                    break;
+                case FillSkipReason.NoWater:
+                    sb.Append("PipesForMO.NoWater".Translate());
+                    break;
+                case FillSkipReason.ProcessorFull:
+                    sb.Append("PipesForMO.ProcessorFull".Translate());
+                    break;
+                case FillSkipReason.TooWarm:
+                    sb.Append("PipesForMO.TooWarm".Translate(parent.AmbientTemperature.ToStringTemperature("F0")));
+                    break;
+                case FillSkipReason.Pending:
+                    sb.Append("PipesForMO.Pending".Translate());
+                    if (net != null && !net.WaterTowers.NullOrEmpty())
+                    {
+                        sb.Append(" - ");
+                        sb.Append("PipesForMO.WaterAvailable".Translate(net.WaterStorage.ToString("F0")));
+                    }
+                    break;
+                default:
+                    if (net == null)
+                    {
+                        sb.Append("PipesForMO.NotConnected".Translate());
+                    }
+                    else
+                    {
+                        sb.Append("PipesForMO.WaterAvailable".Translate(net.WaterStorage.ToString("F0")));
+                    }
+                    break;
             }
-            else if (net.WaterTowers.NullOrEmpty())
+            if (Prefs.DevMode && lastFillTick >= 0)
             {
-                sb.Append("PipesForMO.NoTowers".Translate());
-            }
-            else
-            {
-                sb.Append("PipesForMO.WaterAvailable".Translate(net.WaterStorage.ToString("F0")));
-            }
-            if (Props.requireFreezing && parent.Spawned && parent.AmbientTemperature >= 0f)
-            {
+                int ago = Find.TickManager.TicksGame - lastFillTick;
                 sb.Append(" (");
-                sb.Append("PipesForMO.TooWarm".Translate());
+                sb.Append("PipesForMO.LastFill".Translate(lastFillCount, ago.ToStringTicksToPeriod()));
                 sb.Append(")");
             }
             return sb.ToString();
+        }
+
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+            Scribe_Values.Look(ref lastFillTick, "PipesForMO_lastFillTick", -1);
+            Scribe_Values.Look(ref lastFillCount, "PipesForMO_lastFillCount", 0);
         }
     }
 }

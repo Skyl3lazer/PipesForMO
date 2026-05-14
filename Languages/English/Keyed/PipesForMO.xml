@@ -3,6 +3,10 @@
   <PipesForMO.PipeWaterFill>Pipe water</PipesForMO.PipeWaterFill>
   <PipesForMO.NotConnected>not connected to a pipe network</PipesForMO.NotConnected>
   <PipesForMO.NoTowers>no water tower on this network</PipesForMO.NoTowers>
+  <PipesForMO.NoWater>no water in network</PipesForMO.NoWater>
   <PipesForMO.WaterAvailable>{0} L available</PipesForMO.WaterAvailable>
-  <PipesForMO.TooWarm>too warm to freeze</PipesForMO.TooWarm>
+  <PipesForMO.Pending>waiting for next check</PipesForMO.Pending>
+  <PipesForMO.ProcessorFull>processor full</PipesForMO.ProcessorFull>
+  <PipesForMO.TooWarm>too warm to freeze ({0})</PipesForMO.TooWarm>
+  <PipesForMO.LastFill>last filled {0} waterskin(s) {1} ago</PipesForMO.LastFill>
 </LanguageData>
