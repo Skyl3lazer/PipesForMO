@@ -9,6 +9,7 @@
  </supportedVersions>
  <description>Adds functionality for pipe mods such as DBH to pipe into additional MO and MO mod buildings.</description>
  <modVersion>1.0</modVersion>
+ <url>https://steamcommunity.com/sharedfiles/filedetails/?id=3725970365</url>
  <modDependencies>
   <li>
     <packageId>brrainz.harmony</packageId>
