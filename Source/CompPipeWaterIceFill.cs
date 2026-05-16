@@ -10,8 +10,8 @@ namespace PipesForMO
 {
     public class CompProperties_PipeWaterIceFill : CompProperties
     {
-        public string ingredientDef = "DankPyon_Waterskin";
-        public string processDef = "DankPyon_IceBlockProcess";
+        public string ingredientDef;
+        public string processDef;
         public float waterPerIngredient = 5f;
         public int ticksPerCheck = 250;
         public int maxFillPerCheck = 5;
@@ -40,8 +40,8 @@ namespace PipesForMO
     {
         private CompPipe pipeComp;
         private CompProcessor processorComp;
-        private ThingDef cachedIngredientDef;
-        private ProcessDef cachedProcessDef;
+        public ThingDef ingredientDef;
+        public ProcessDef processDef;
         private bool resolveFailed;
 
         private FillSkipReason lastReason = FillSkipReason.Pending;
@@ -55,25 +55,6 @@ namespace PipesForMO
             base.PostSpawnSetup(respawningAfterLoad);
             pipeComp = parent.GetComp<CompPipe>();
             processorComp = parent.GetComp<CompProcessor>();
-            ResolveDefs();
-        }
-
-        private void ResolveDefs()
-        {
-            if (resolveFailed || (cachedIngredientDef != null && cachedProcessDef != null))
-            {
-                return;
-            }
-            cachedIngredientDef = DefDatabase<ThingDef>.GetNamedSilentFail(Props.ingredientDef);
-            cachedProcessDef = DefDatabase<ProcessDef>.GetNamedSilentFail(Props.processDef);
-            if (cachedIngredientDef == null || cachedProcessDef == null)
-            {
-                resolveFailed = true;
-                Log.WarningOnce(
-                    $"[PipesForMO] CompPipeWaterIceFill on {parent?.def?.defName} could not resolve "
-                    + $"ingredientDef='{Props.ingredientDef}' or processDef='{Props.processDef}'. Disabling.",
-                    GetHashCode());
-            }
         }
 
         private int ticksSinceCheck;
@@ -113,7 +94,6 @@ namespace PipesForMO
 
         private bool TryFillFromPipe(bool force)
         {
-            ResolveDefs();
             if (resolveFailed)
             {
                 lastReason = FillSkipReason.ResolveFailed;
@@ -140,7 +120,7 @@ namespace PipesForMO
                 lastReason = FillSkipReason.NoWater;
                 return false;
             }
-            int spaceLeft = processorComp.SpaceLeftFor(cachedProcessDef);
+            int spaceLeft = processorComp.SpaceLeftFor(processDef);
             if (spaceLeft <= 0)
             {
                 lastReason = FillSkipReason.ProcessorFull;
@@ -164,9 +144,9 @@ namespace PipesForMO
                 lastReason = FillSkipReason.NoWater;
                 return false;
             }
-            Thing ingredient = ThingMaker.MakeThing(cachedIngredientDef);
+            Thing ingredient = ThingMaker.MakeThing(ingredientDef);
             ingredient.stackCount = unitsToMake;
-            processorComp.AddIngredient(ingredient, cachedProcessDef);
+            processorComp.AddIngredient(ingredient, processDef);
             lastReason = FillSkipReason.Ok;
             lastFillTick = Find.TickManager.TicksGame;
             lastFillCount = unitsToMake;
