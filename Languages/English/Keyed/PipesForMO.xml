@@ -17,4 +17,6 @@
   <PipesForMO.Kettle.NotLow>Boiler pot pipe fill: storage above refill threshold</PipesForMO.Kettle.NotLow>
   <PipesForMO.Kettle.RefillDisabled>Boiler pot pipe fill: refill mode is set to never</PipesForMO.Kettle.RefillDisabled>
   <PipesForMO.Kettle.LastFill>Boiler pot pipe fill: pulled {0}L {1} ago</PipesForMO.Kettle.LastFill>
+  <PipesForMO.Dev.ForceFillLabel>DEV: Force pipe fill</PipesForMO.Dev.ForceFillLabel>
+  <PipesForMO.Dev.ForceFillDesc>Bypass the freezing check and try to pull water from the DBH net once.</PipesForMO.Dev.ForceFillDesc>
 </LanguageData>
