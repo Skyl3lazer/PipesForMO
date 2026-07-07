@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <Excluded>
+    <exclude>.claude</exclude>
+    <exclude>.cursor</exclude>
+    <exclude>.git</exclude>
+    <exclude>.vscode</exclude>
+    <exclude>Pipes for Medieval Overhaul.code-workspace</exclude>
+    <exclude>PipesForMO.sln</exclude>
+    <exclude>Source</exclude>
+  </Excluded>
+</Configuration>
