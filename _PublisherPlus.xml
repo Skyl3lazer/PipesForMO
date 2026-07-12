@@ -5,6 +5,8 @@
     <exclude>.cursor</exclude>
     <exclude>.git</exclude>
     <exclude>.vscode</exclude>
+    <exclude>About\ModIcon.psd</exclude>
+    <exclude>About\Preview.psd</exclude>
     <exclude>Pipes for Medieval Overhaul.code-workspace</exclude>
     <exclude>PipesForMO.sln</exclude>
     <exclude>Source</exclude>
