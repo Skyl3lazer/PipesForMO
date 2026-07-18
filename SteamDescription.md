@@ -9,7 +9,7 @@ I plan to keep adding buildings as I come across ones that are annoying to fill 
 [h2]Currently supports[/h2]
 [list]
 [*][b]Medieval Overhaul[/b] - Ice Block Molds
-[*][b]DBH for Medieval[/b] - Boiler Pot
+[*][b]DBH for Medieval[/b] - Boiler Pot, Simple Bathtub
 [/list]
 
 [h2]Dependencies[/h2]
@@ -17,7 +17,7 @@ I plan to keep adding buildings as I come across ones that are annoying to fill 
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url]
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=836308268]Dubs Bad Hygiene[/url]
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3219596926]Medieval Overhaul[/url]
-[*](Optional) [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2926675339]DBH for Medieval[/url] - Enables Boiler Pot support.
+[*](Optional) [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2926675339]DBH for Medieval[/url] - Enables Boiler Pot and Simple Bathtub support.
 [/list]
 
 [h2]Supported versions[/h2]

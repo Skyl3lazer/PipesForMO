@@ -16,7 +16,7 @@ I plan to keep adding buildings as I come across ones that are annoying to fill 
 - [Harmony](https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077)
 - [Dubs Bad Hygiene](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268)
 - [Medieval Overhaul](https://steamcommunity.com/sharedfiles/filedetails/?id=3219596926)
-- (Supports) [DBH for Medieval](https://steamcommunity.com/sharedfiles/filedetails/?id=2926675339) - Enables Boiler Pot support.
+- (Supports) [DBH for Medieval](https://steamcommunity.com/sharedfiles/filedetails/?id=2926675339) - Enables Boiler Pot and Simple Bathtub support.
 
 ## Supported versions
 
