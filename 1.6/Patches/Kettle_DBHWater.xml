@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
 
-  <!--
-    DBH for Medieval: Boiler pot (ES_Kettle)
-    Adds DBH pipe connectivity and auto-fills CompHotWaterStorage from
-    the connected DBH water network.
-  -->
+  <!-- ES_Kettle (boiler pot) -->
   <Operation Class="PatchOperationFindMod">
     <mods>
       <li>Dubs Bad Hygiene</li>

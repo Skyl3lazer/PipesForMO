@@ -8,7 +8,7 @@ using Verse;
 
 namespace PipesForMO
 {
-    public class CompProperties_PipeWaterIceFill : CompProperties
+    public class CompProperties_PipeWaterIceFill : CompProperties, IPipeIntegrationProps
     {
         public ThingDef ingredientDef;
         public ProcessDef processDef;

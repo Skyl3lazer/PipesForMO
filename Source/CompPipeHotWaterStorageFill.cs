@@ -8,7 +8,7 @@ using Verse;
 
 namespace PipesForMO
 {
-    public class CompProperties_PipeHotWaterStorageFill : CompProperties
+    public class CompProperties_PipeHotWaterStorageFill : CompProperties, IPipeIntegrationProps
     {
         public int ticksPerCheck = 60;
         public float maxPullPerCheck = 30f;
@@ -16,8 +16,6 @@ namespace PipesForMO
         public bool respectRefillMode = true;
         public float pushedWaterTemperature = 25f;
 
-        // When set, the pushed temperature tracks whether the net can supply hot water
-        // (a boiler-fed hot water tank) instead of the fixed pushedWaterTemperature.
         public bool useNetHeatedStatus = false;
         public float warmWaterTemperature = 60f;
         public float coldWaterTemperature = 25f;

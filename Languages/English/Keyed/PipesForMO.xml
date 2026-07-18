@@ -27,6 +27,9 @@
   <PipesForMO.Bath.LastFill>Bathtub pipe fill: pulled {0}L {1} ago</PipesForMO.Bath.LastFill>
   <PipesForMO.Bath.FillingWarm>Bathtub pipe fill: filling warm (boiler heat)</PipesForMO.Bath.FillingWarm>
   <PipesForMO.Bath.FillingCold>Bathtub pipe fill: filling cold (no boiler heat)</PipesForMO.Bath.FillingCold>
+  <PipesForMO.Settings.Category>Pipes for Medieval Overhaul</PipesForMO.Settings.Category>
+  <PipesForMO.Settings.RestartNote>Toggle which buildings connect to the pipe network. Changes require a restart to take effect.</PipesForMO.Settings.RestartNote>
+  <PipesForMO.Settings.NoIntegrations>No supported buildings found. Install DBH for Medieval and/or Medieval Overhaul to enable pipe integrations.</PipesForMO.Settings.NoIntegrations>
   <PipesForMO.Dev.ForceFillLabel>DEV: Force pipe fill</PipesForMO.Dev.ForceFillLabel>
   <PipesForMO.Dev.ForceFillDesc>Bypass the freezing check and try to pull water from the DBH net once.</PipesForMO.Dev.ForceFillDesc>
 </LanguageData>

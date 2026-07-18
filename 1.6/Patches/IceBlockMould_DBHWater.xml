@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch MayRequire="syrchalis.processor.framework">
 
-  <!--
-    Hooks the MO ice block mould (DankPyon_IceBlock_Maker) into the DBH plumbing
-    grid as a water consumer.
-
-    DBH consumer fixtures (sinks, basins, even the IceWell) attach to the grid
-    via mode "Sewage" - that's the side fixtures actually share with water
-    towers through DBH's internal sewage<->water net merging. Putting the mould
-    on mode "Water" (the tower side) leaves it on a net with no water towers
-    and PullWater always returns 0.
-
-    CompWaterTrader registers the mould in the network's WaterUsers list so
-    DBH's water grid overlay and stats recognise it as a consumer.
-  -->
+  <!-- mode must be Sewage: DBH merges its sewage/water nets, and the Water side has no towers so PullWater returns 0. -->
   <Operation Class="PatchOperationFindMod">
     <mods>
       <li>Dubs Bad Hygiene</li>

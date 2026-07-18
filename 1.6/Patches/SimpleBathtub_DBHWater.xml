@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
 
-  <!--
-    DBH for Medieval: Simple bathtub (ES_SimpleBathtub)
-    Auto-fills the bath's CompHotWaterStorage from the connected DBH water net.
-    The bath never self-heats, so useNetHeatedStatus makes the pushed water warm
-    only when the net can supply hot water (a boiler-fed hot water tank); with no
-    boiler heat the fill is cold.
-  -->
+  <!-- ES_SimpleBathtub: the bath never self-heats, so piped water is warm only when the net has boiler heat. -->
   <Operation Class="PatchOperationFindMod">
     <mods>
       <li>Dubs Bad Hygiene</li>
