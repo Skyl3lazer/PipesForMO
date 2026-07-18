@@ -17,6 +17,16 @@
   <PipesForMO.Kettle.NotLow>Boiler pot pipe fill: storage above refill threshold</PipesForMO.Kettle.NotLow>
   <PipesForMO.Kettle.RefillDisabled>Boiler pot pipe fill: refill mode is set to never</PipesForMO.Kettle.RefillDisabled>
   <PipesForMO.Kettle.LastFill>Boiler pot pipe fill: pulled {0}L {1} ago</PipesForMO.Kettle.LastFill>
+  <PipesForMO.Bath.Pending>Bathtub pipe fill: waiting for next check</PipesForMO.Bath.Pending>
+  <PipesForMO.Bath.NotConnected>Bathtub pipe fill: not connected to a pipe network</PipesForMO.Bath.NotConnected>
+  <PipesForMO.Bath.NoTowers>Bathtub pipe fill: no water tower on this network</PipesForMO.Bath.NoTowers>
+  <PipesForMO.Bath.NoWater>Bathtub pipe fill: no water in network</PipesForMO.Bath.NoWater>
+  <PipesForMO.Bath.Full>Bathtub pipe fill: storage full</PipesForMO.Bath.Full>
+  <PipesForMO.Bath.NotLow>Bathtub pipe fill: storage above refill threshold</PipesForMO.Bath.NotLow>
+  <PipesForMO.Bath.RefillDisabled>Bathtub pipe fill: refill mode is set to never</PipesForMO.Bath.RefillDisabled>
+  <PipesForMO.Bath.LastFill>Bathtub pipe fill: pulled {0}L {1} ago</PipesForMO.Bath.LastFill>
+  <PipesForMO.Bath.FillingWarm>Bathtub pipe fill: filling warm (boiler heat)</PipesForMO.Bath.FillingWarm>
+  <PipesForMO.Bath.FillingCold>Bathtub pipe fill: filling cold (no boiler heat)</PipesForMO.Bath.FillingCold>
   <PipesForMO.Dev.ForceFillLabel>DEV: Force pipe fill</PipesForMO.Dev.ForceFillLabel>
   <PipesForMO.Dev.ForceFillDesc>Bypass the freezing check and try to pull water from the DBH net once.</PipesForMO.Dev.ForceFillDesc>
 </LanguageData>

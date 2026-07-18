@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    DBH for Medieval: Simple bathtub (ES_SimpleBathtub)
+    Auto-fills the bath's CompHotWaterStorage from the connected DBH water net.
+    The bath never self-heats, so useNetHeatedStatus makes the pushed water warm
+    only when the net can supply hot water (a boiler-fed hot water tank); with no
+    boiler heat the fill is cold.
+  -->
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Dubs Bad Hygiene</li>
+      <li>DBH for Medieval</li>
+    </mods>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="ES_SimpleBathtub"]/comps</xpath>
+      <value>
+        <li Class="DubsBadHygiene.CompProperties_Pipe">
+          <mode>Sewage</mode>
+        </li>
+        <li Class="DubsBadHygiene.CompProperties_WaterTrader">
+          <WaterPerTick>0.001</WaterPerTick>
+        </li>
+        <li Class="PipesForMO.CompProperties_PipeHotWaterStorageFill">
+          <ticksPerCheck>60</ticksPerCheck>
+          <maxPullPerCheck>60</maxPullPerCheck>
+          <onlyWhenLow>true</onlyWhenLow>
+          <respectRefillMode>true</respectRefillMode>
+          <useNetHeatedStatus>true</useNetHeatedStatus>
+          <warmWaterTemperature>60</warmWaterTemperature>
+          <coldWaterTemperature>25</coldWaterTemperature>
+          <heatCostPerWaterUnit>0.00013</heatCostPerWaterUnit>
+          <inspectKeyPrefix>PipesForMO.Bath</inspectKeyPrefix>
+        </li>
+      </value>
+    </match>
+  </Operation>
+
+</Patch>

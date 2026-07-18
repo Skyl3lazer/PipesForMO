@@ -4,6 +4,10 @@ name: Release on new modVersion
 # that has no matching release yet. The zip mirrors the Steam download: every
 # top-level entry except dot-prefixed ones, Source/, docs/, _PublisherPlus.xml,
 # and any .sln / .psd / .code-workspace file.
+#
+# When About/PublishedFileId.txt exists and both STEAM_USERNAME and
+# STEAM_CONFIG_VDF secrets are set, the same staged files are also pushed to the
+# Steam Workshop item. Absent either, the Steam step silently no-ops.
 
 on:
   push:
@@ -22,6 +26,9 @@ concurrency:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
+      STEAM_CONFIG_VDF: ${{ secrets.STEAM_CONFIG_VDF }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,11 +45,17 @@ jobs:
           fi
           name=${name:-mod}
           slug=$(echo "$name" | tr -cd '[:alnum:]')
+          if [ -f About/PublishedFileId.txt ]; then
+            workshopId=$(tr -d '[:space:]' < About/PublishedFileId.txt)
+          else
+            workshopId=
+          fi
           {
             echo "version=$version"
             echo "tag=v$version"
             echo "name=$name"
             echo "zip=${slug}-${version}.zip"
+            echo "workshopId=$workshopId"
           } >> "$GITHUB_OUTPUT"
 
       - name: Skip if release already exists
@@ -62,7 +75,9 @@ jobs:
         if: steps.check.outputs.exists == 'false'
         run: |
           set -euo pipefail
-          staging="$RUNNER_TEMP/staging/${{ steps.meta.outputs.name }}"
+          # Stage into a workspace dot-dir (skipped by the `*` glob below, and so
+          # a workspace-relative path the Steam Workshop action can read).
+          staging="$GITHUB_WORKSPACE/.staging/${{ steps.meta.outputs.name }}"
           mkdir -p "$staging"
           # Mirror the Steam download: every top-level entry except dot-prefixed
           # ones (the glob skips them), Source/, docs/, and _PublisherPlus.xml.
@@ -73,9 +88,9 @@ jobs:
             cp -r "$entry" "$staging/"
           done
           find "$staging" -type f \( -iname '*.psd' -o -iname '*.sln' -o -iname '*.code-workspace' \) -delete
-          ( cd "$RUNNER_TEMP/staging" && zip -rX "$RUNNER_TEMP/${{ steps.meta.outputs.zip }}" "${{ steps.meta.outputs.name }}" )
+          ( cd "$GITHUB_WORKSPACE/.staging" && zip -rX "$RUNNER_TEMP/${{ steps.meta.outputs.zip }}" "${{ steps.meta.outputs.name }}" )
           echo "Packaged contents:"
-          ( cd "$RUNNER_TEMP/staging" && find "${{ steps.meta.outputs.name }}" -maxdepth 2 -print )
+          ( cd "$GITHUB_WORKSPACE/.staging" && find "${{ steps.meta.outputs.name }}" -maxdepth 2 -print )
 
       - name: Create release
         if: steps.check.outputs.exists == 'false'
@@ -88,3 +103,18 @@ jobs:
             --title "${{ steps.meta.outputs.name }} ${{ steps.meta.outputs.version }}" \
             --target "${{ github.sha }}" \
             --generate-notes
+
+      - name: Deploy to Steam Workshop
+        if: >-
+          steps.check.outputs.exists == 'false' &&
+          steps.meta.outputs.workshopId != '' &&
+          env.STEAM_USERNAME != '' &&
+          env.STEAM_CONFIG_VDF != ''
+        uses: Skyl3lazer/SteamWorkshopDeploy@latest
+        with:
+          appId: 294100
+          publishedFileId: ${{ steps.meta.outputs.workshopId }}
+          path: .staging/${{ steps.meta.outputs.name }}
+          username: ${{ env.STEAM_USERNAME }}
+          configVdf: ${{ env.STEAM_CONFIG_VDF }}
+          changeNote: Version ${{ steps.meta.outputs.version }}

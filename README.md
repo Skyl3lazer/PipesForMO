@@ -9,7 +9,7 @@ I plan to keep adding buildings as I come across ones that are annoying to fill 
 ## Currently supports
 
 - **Medieval Overhaul** - Ice Block Molds
-- **DBH for Medieval** - Boiler Pot
+- **DBH for Medieval** - Boiler Pot, Simple Bathtub
 
 ## Dependencies
 

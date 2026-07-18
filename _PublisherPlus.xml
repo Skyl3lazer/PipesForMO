@@ -1,14 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Configuration>
   <Excluded>
     <exclude>.claude</exclude>
     <exclude>.cursor</exclude>
+    <exclude>.editorconfig</exclude>
     <exclude>.git</exclude>
+    <exclude>.github</exclude>
+    <exclude>.gitignore</exclude>
     <exclude>.vscode</exclude>
     <exclude>About\ModIcon.psd</exclude>
     <exclude>About\Preview.psd</exclude>
     <exclude>Pipes for Medieval Overhaul.code-workspace</exclude>
     <exclude>PipesForMO.sln</exclude>
     <exclude>Source</exclude>
+    <exclude>docs</exclude>
   </Excluded>
 </Configuration>

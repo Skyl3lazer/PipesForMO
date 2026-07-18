@@ -432,3 +432,7 @@ FodyWeavers.xsd
 # AI Assistants
 .cursor
 .claude
+
+# Design docs (internal — not pushed or shipped)
+/docs/
+/CONTEXT.md

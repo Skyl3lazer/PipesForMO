@@ -16,6 +16,14 @@ namespace PipesForMO
         public bool respectRefillMode = true;
         public float pushedWaterTemperature = 25f;
 
+        // When set, the pushed temperature tracks whether the net can supply hot water
+        // (a boiler-fed hot water tank) instead of the fixed pushedWaterTemperature.
+        public bool useNetHeatedStatus = false;
+        public float warmWaterTemperature = 60f;
+        public float coldWaterTemperature = 25f;
+        public float heatCostPerWaterUnit = 0.00013f;
+        public string inspectKeyPrefix = "PipesForMO.Kettle";
+
         public CompProperties_PipeHotWaterStorageFill()
         {
             compClass = typeof(CompPipeHotWaterStorageFill);
@@ -50,6 +58,7 @@ namespace PipesForMO
         private int ticksSinceCheck;
         private int lastFillTick = -1;
         private float lastFillAmount;
+        private bool lastHeated;
         private HotWaterFillReason lastReason = HotWaterFillReason.Pending;
 
         public CompProperties_PipeHotWaterStorageFill Props => (CompProperties_PipeHotWaterStorageFill)props;
@@ -205,11 +214,22 @@ namespace PipesForMO
                 lastReason = HotWaterFillReason.NoWater;
                 return false;
             }
-            pushWaterMethod.Invoke(hotWaterStorageComp, new object[] { pull, contam, Props.pushedWaterTemperature });
+            float temperature = ResolvePushTemperature(net, pull);
+            pushWaterMethod.Invoke(hotWaterStorageComp, new object[] { pull, contam, temperature });
             lastFillTick = Find.TickManager.TicksGame;
             lastFillAmount = pull;
             lastReason = HotWaterFillReason.Ok;
             return true;
+        }
+
+        private float ResolvePushTemperature(PlumbingNet net, float pull)
+        {
+            if (!Props.useNetHeatedStatus)
+            {
+                return Props.pushedWaterTemperature;
+            }
+            lastHeated = net.PullHotWater(Props.heatCostPerWaterUnit * pull);
+            return lastHeated ? Props.warmWaterTemperature : Props.coldWaterTemperature;
         }
 
         public override string CompInspectStringExtra()
@@ -218,30 +238,35 @@ namespace PipesForMO
             {
                 return null;
             }
+            string prefix = Props.inspectKeyPrefix;
             switch (lastReason)
             {
                 case HotWaterFillReason.NotConnected:
-                    return "PipesForMO.Kettle.NotConnected".Translate();
+                    return (prefix + ".NotConnected").Translate();
                 case HotWaterFillReason.NoTowers:
-                    return "PipesForMO.Kettle.NoTowers".Translate();
+                    return (prefix + ".NoTowers").Translate();
                 case HotWaterFillReason.NoWater:
-                    return "PipesForMO.Kettle.NoWater".Translate();
+                    return (prefix + ".NoWater").Translate();
                 case HotWaterFillReason.StorageFull:
-                    return "PipesForMO.Kettle.Full".Translate();
+                    return (prefix + ".Full").Translate();
                 case HotWaterFillReason.NotLow:
-                    return "PipesForMO.Kettle.NotLow".Translate();
+                    return (prefix + ".NotLow").Translate();
                 case HotWaterFillReason.RefillDisabled:
-                    return "PipesForMO.Kettle.RefillDisabled".Translate();
+                    return (prefix + ".RefillDisabled").Translate();
                 case HotWaterFillReason.Pending:
-                    return "PipesForMO.Kettle.Pending".Translate();
+                    return (prefix + ".Pending").Translate();
                 default:
                 {
+                    if (Props.useNetHeatedStatus && lastFillTick >= 0)
+                    {
+                        return (prefix + (lastHeated ? ".FillingWarm" : ".FillingCold")).Translate();
+                    }
                     if (!Prefs.DevMode || lastFillTick < 0)
                     {
                         return null;
                     }
                     int ago = Find.TickManager.TicksGame - lastFillTick;
-                    return "PipesForMO.Kettle.LastFill".Translate(lastFillAmount.ToString("0.#"), ago.ToStringTicksToPeriod());
+                    return (prefix + ".LastFill").Translate(lastFillAmount.ToString("0.#"), ago.ToStringTicksToPeriod());
                 }
             }
         }
