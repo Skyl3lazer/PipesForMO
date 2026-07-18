@@ -4,7 +4,6 @@
   <!-- ES_SimpleBathtub: the bath never self-heats, so piped water is warm only when the net has boiler heat. -->
   <Operation Class="PatchOperationFindMod">
     <mods>
-      <li>Dubs Bad Hygiene</li>
       <li>DBH for Medieval</li>
     </mods>
     <match Class="PatchOperationAdd">

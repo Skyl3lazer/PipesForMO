@@ -25,7 +25,7 @@ namespace PipesForMO
         {
             foreach (ThingDef def in DefDatabase<ThingDef>.AllDefsListForReading)
             {
-                if (def.comps.NullOrEmpty() || !def.comps.Any(c => c is IPipeIntegrationProps))
+                if (!IsIntegration(def))
                 {
                     continue;
                 }
@@ -42,8 +42,13 @@ namespace PipesForMO
             Integrations.SortBy(i => i.label);
         }
 
+        public static bool IsIntegration(ThingDef def)
+        {
+            return def != null && !def.comps.NullOrEmpty() && def.comps.Any(c => c is IPipeIntegrationProps);
+        }
+
         // Leaves native comps (e.g. the bath's own hot water storage) so off is exactly vanilla.
-        private static void StripPipeComps(ThingDef def)
+        public static void StripPipeComps(ThingDef def)
         {
             def.comps.RemoveAll(c =>
                 c is IPipeIntegrationProps ||
