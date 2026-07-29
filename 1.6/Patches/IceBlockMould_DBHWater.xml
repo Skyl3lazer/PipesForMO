@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Patch MayRequire="syrchalis.processor.framework">
+<Patch>
 
-  <!-- mode must be Sewage: DBH merges its sewage/water nets, and the Water side has no towers so PullWater returns 0. -->
-  <Operation Class="PatchOperationFindMod">
-    <mods>
-      <li>Dubs Bad Hygiene</li>
-      <li>Medieval Overhaul</li>
-    </mods>
-    <match Class="PatchOperationAdd">
-      <xpath>/Defs/ThingDef[defName="DankPyon_IceBlock_Maker"]/comps</xpath>
-      <value>
-        <li Class="DubsBadHygiene.CompProperties_Pipe">
-          <mode>Sewage</mode>
-        </li>
-        <li Class="DubsBadHygiene.CompProperties_WaterTrader">
-          <WaterPerTick>0.001</WaterPerTick>
-        </li>
-        <li Class="PipesForMO.CompProperties_PipeWaterIceFill">
-          <ingredientDef>DankPyon_Waterskin</ingredientDef>
-          <processDef>DankPyon_IceBlockProcess</processDef>
-          <waterPerIngredient>5</waterPerIngredient>
-          <ticksPerCheck>250</ticksPerCheck>
-          <maxFillPerCheck>5</maxFillPerCheck>
-          <requireFreezing>true</requireFreezing>
-        </li>
-      </value>
-    </match>
+  <Operation Class="PatchOperationSequence">
+    <operations>
+      <li Class="PatchOperationConditional" MayRequire="Dubwise.DubsBadHygiene,syrchalis.processor.framework">
+        <xpath>/Defs/ThingDef[defName="DankPyon_IceBlock_Maker"]/comps</xpath>
+        <match Class="PatchOperationAdd">
+          <xpath>/Defs/ThingDef[defName="DankPyon_IceBlock_Maker"]/comps</xpath>
+          <value>
+            <!-- mode must be Sewage: DBH merges its sewage/water nets, and the Water side has no towers so PullWater returns 0. -->
+            <li Class="DubsBadHygiene.CompProperties_Pipe">
+              <mode>Sewage</mode>
+            </li>
+            <li Class="DubsBadHygiene.CompProperties_WaterTrader">
+              <WaterPerTick>0.001</WaterPerTick>
+            </li>
+            <li Class="PipesForMO.CompProperties_PipeWaterIceFill">
+              <ingredientDef>DankPyon_Waterskin</ingredientDef>
+              <processDef>DankPyon_IceBlockProcess</processDef>
+              <waterPerIngredient>5</waterPerIngredient>
+              <ticksPerCheck>250</ticksPerCheck>
+              <maxFillPerCheck>5</maxFillPerCheck>
+              <requireFreezing>true</requireFreezing>
+            </li>
+          </value>
+        </match>
+      </li>
+    </operations>
   </Operation>
 
 </Patch>
