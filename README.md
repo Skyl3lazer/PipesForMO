@@ -32,4 +32,8 @@ I plan to keep adding buildings as I come across ones that are annoying to fill 
 
 ### AI Disclosure:
 
+[![AI-DECLARATION: copilot](https://img.shields.io/badge/䷼%20AI--DECLARATION-copilot-fee2e2?labelColor=fee2e2)](https://ai-declaration.md)
+
+*This level comes from the use of AI in testing and deployment tasks, see [AI-DECLARATION.md](AI-DECLARATION.md)*
+
 This mod was partially developed with the assistance of AI tools, used by an actual programmer who understands the mod and any code it produced.
