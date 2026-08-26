@@ -4,16 +4,22 @@
     <TargetFramework>net48</TargetFramework>
     <LangVersion>latest</LangVersion>
     <RootNamespace>PipesForMO</RootNamespace>
-    <AssemblyName>PipesForMO</AssemblyName>
+    <AssemblyName>PipesForMO.Processor</AssemblyName>
     <Nullable>disable</Nullable>
     <NoWarn>CS0436;CS0108;CS0114</NoWarn>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
-    <OutputPath>..\..\1.6\Assemblies\</OutputPath>
+    <OutputPath>..\..\ProcessorFramework\Assemblies\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <Optimize>true</Optimize>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PipesForMO\PipesForMO.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemGroup>
 
   <ItemGroup>
     <!-- RimWorld game assemblies -->
@@ -33,6 +39,10 @@
     <!-- Mod dependencies (resolved from Steam workshop) -->
     <Reference Include="BadHygiene">
       <HintPath>..\..\..\..\..\..\workshop\content\294100\836308268\1.6\Assemblies\BadHygiene.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="ProcessorFramework">
+      <HintPath>..\..\..\..\..\..\workshop\content\294100\3210544395\1.6\Assemblies\ProcessorFramework.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

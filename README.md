@@ -1,8 +1,7 @@
-# Pipes for Medieval Overhaul
+# Pipes for Medieval (Overhaul)
 
-A RimWorld mod that hooks additional **Medieval Overhaul** (and MO add-on) buildings into the **Dubs Bad Hygiene** water network, so they refill from your plumbing instead of being hand-filled. Wiring a building into the DBH water grid is fiddly and can't be done purely through XML, so many mod authors skip it.
+A RimWorld mod that hooks additional modded buildings into the **Dubs Bad Hygiene** water network, so they refill from your plumbing instead of being hand-filled. Wiring a building into the DBH water grid is fiddly and can't be done purely through XML, so many mod authors skip it.
 
-Only the mods you actually run get patched. Support for anything beyond DBH and MO is applied conditionally, so unused mods add no requirements.
 
 I plan to keep adding buildings as I come across ones that are annoying to fill by hand. I do *not* plan on adding a medieval-tier hot water heater through this mod. Feel free to suggest other buildings to connect!
 
@@ -15,8 +14,11 @@ I plan to keep adding buildings as I come across ones that are annoying to fill 
 
 - [Harmony](https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077)
 - [Dubs Bad Hygiene](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268)
-- [Medieval Overhaul](https://steamcommunity.com/sharedfiles/filedetails/?id=3219596926)
-- (Supports) [DBH for Medieval](https://steamcommunity.com/sharedfiles/filedetails/?id=2926675339) - Enables Boiler Pot and Simple Bathtub support.
+
+Optional, each enabling its own buildings:
+
+- [Medieval Overhaul](https://steamcommunity.com/sharedfiles/filedetails/?id=3219596926) - Ice Block Molds.
+- [DBH for Medieval](https://steamcommunity.com/sharedfiles/filedetails/?id=2926675339) - Boiler Pot, Simple Bathtub.
 
 ## Supported versions
 

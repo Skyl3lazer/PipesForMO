@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<loadFolders>
+
+  <!-- Declaring loadFolders stops RimWorld loading the mod root implicitly, so "/" is what keeps Languages/. -->
+  <v1.6>
+    <li>/</li>
+    <li>1.6</li>
+    <li IfModActive="syrchalis.processor.framework">ProcessorFramework</li>
+  </v1.6>
+
+</loadFolders>
