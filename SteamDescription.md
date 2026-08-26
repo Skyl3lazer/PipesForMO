@@ -16,7 +16,7 @@ I plan to keep adding buildings as I come across ones that are annoying to fill 
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=836308268]Dubs Bad Hygiene[/url]
 [/list]
 
-Optional, each enabling its own buildings:
+Optional, each enables its own buildings:
 [list]
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3219596926]Medieval Overhaul[/url] - Ice Block Molds.
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2926675339]DBH for Medieval[/url] - Boiler Pot, Simple Bathtub.
