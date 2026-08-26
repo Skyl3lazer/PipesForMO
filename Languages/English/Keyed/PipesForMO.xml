@@ -16,6 +16,7 @@
   <PipesForMO.Kettle.Full>Boiler pot pipe fill: storage full</PipesForMO.Kettle.Full>
   <PipesForMO.Kettle.NotLow>Boiler pot pipe fill: storage above refill threshold</PipesForMO.Kettle.NotLow>
   <PipesForMO.Kettle.RefillDisabled>Boiler pot pipe fill: refill mode is set to never</PipesForMO.Kettle.RefillDisabled>
+  <PipesForMO.Kettle.NoHotWater>Boiler pot pipe fill: no hot water source on this network</PipesForMO.Kettle.NoHotWater>
   <PipesForMO.Kettle.LastFill>Boiler pot pipe fill: pulled {0}L {1} ago</PipesForMO.Kettle.LastFill>
   <PipesForMO.Bath.Pending>Bathtub pipe fill: waiting for next check</PipesForMO.Bath.Pending>
   <PipesForMO.Bath.NotConnected>Bathtub pipe fill: not connected to a pipe network</PipesForMO.Bath.NotConnected>
@@ -24,6 +25,7 @@
   <PipesForMO.Bath.Full>Bathtub pipe fill: storage full</PipesForMO.Bath.Full>
   <PipesForMO.Bath.NotLow>Bathtub pipe fill: storage above refill threshold</PipesForMO.Bath.NotLow>
   <PipesForMO.Bath.RefillDisabled>Bathtub pipe fill: refill mode is set to never</PipesForMO.Bath.RefillDisabled>
+  <PipesForMO.Bath.NoHotWater>Bathtub pipe fill: no heated vessel on this network. Set refill to cold or both to fill anyway</PipesForMO.Bath.NoHotWater>
   <PipesForMO.Bath.LastFill>Bathtub pipe fill: pulled {0}L {1} ago</PipesForMO.Bath.LastFill>
   <PipesForMO.Bath.FillingWarm>Bathtub pipe fill: filling warm (boiler heat)</PipesForMO.Bath.FillingWarm>
   <PipesForMO.Bath.FillingCold>Bathtub pipe fill: filling cold (no boiler heat)</PipesForMO.Bath.FillingCold>
