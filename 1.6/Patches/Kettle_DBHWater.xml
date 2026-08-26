@@ -2,10 +2,8 @@
 <Patch>
 
   <!-- ES_Kettle (boiler pot) -->
-  <Operation Class="PatchOperationFindMod">
-    <mods>
-      <li>DBH for Medieval</li>
-    </mods>
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="ES_Kettle"]/comps</xpath>
     <match Class="PatchOperationAdd">
       <xpath>/Defs/ThingDef[defName="ES_Kettle"]/comps</xpath>
       <value>

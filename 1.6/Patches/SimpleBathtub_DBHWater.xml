@@ -2,10 +2,8 @@
 <Patch>
 
   <!-- ES_SimpleBathtub: the bath never self-heats, so piped water is warm only when the net has boiler heat. -->
-  <Operation Class="PatchOperationFindMod">
-    <mods>
-      <li>DBH for Medieval</li>
-    </mods>
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="ES_SimpleBathtub"]/comps</xpath>
     <match Class="PatchOperationAdd">
       <xpath>/Defs/ThingDef[defName="ES_SimpleBathtub"]/comps</xpath>
       <value>
