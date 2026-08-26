@@ -8,7 +8,7 @@
  <li>1.6</li>
  </supportedVersions>
  <description>Adds functionality for pipe mods such as DBH to pipe into additional modded buildings. Medieval Overhaul and its add-ons are supported. Each building is patched only when the mod that adds it is loaded.</description>
- <modVersion>1.5</modVersion>
+ <modVersion>1.6</modVersion>
  <url>https://steamcommunity.com/sharedfiles/filedetails/?id=3725970365</url>
  <modDependencies>
   <li>
