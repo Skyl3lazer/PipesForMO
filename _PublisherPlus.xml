@@ -15,5 +15,12 @@
     <exclude>Source</exclude>
     <exclude>docs</exclude>
     <exclude>CONTEXT.md</exclude>
+    <exclude>Assets.zip</exclude>
+    <exclude>1.6\Assets.zip</exclude>
+    <exclude>1.7\Assets.zip</exclude>
+    <exclude>Common\Assets.zip</exclude>
+    <exclude>ProcessorFramework\Assets.zip</exclude>
+    <exclude>ProcessorFramework\1.6\Assets.zip</exclude>
+    <exclude>ProcessorFramework\1.7\Assets.zip</exclude>
   </Excluded>
 </Configuration>
