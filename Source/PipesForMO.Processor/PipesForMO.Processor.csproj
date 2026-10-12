@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks>net48;net10.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <RootNamespace>PipesForMO</RootNamespace>
     <AssemblyName>PipesForMO.Processor</AssemblyName>
@@ -9,10 +9,21 @@
     <NoWarn>CS0436;CS0108;CS0114</NoWarn>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
-    <OutputPath>..\..\ProcessorFramework\Assemblies\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
     <Optimize>true</Optimize>
+    <RimWorldDir>..\..\..\..\</RimWorldDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net48'">
+    <OutputPath>..\..\ProcessorFramework\1.6\Assemblies\</OutputPath>
+    <DefineConstants>$(DefineConstants);v1_6</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <OutputPath>..\..\ProcessorFramework\1.7\Assemblies\</OutputPath>
+    <DefineConstants>$(DefineConstants);v1_7</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,22 +32,23 @@
     </ProjectReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <!-- RimWorld game assemblies -->
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\..\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
+  </ItemGroup>
 
-    <!-- Mod dependencies (resolved from Steam workshop) -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(RimWorldDir)Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityStubs">
+      <HintPath>$(RimWorldDir)UnityStubs.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Neither framework has a 1.7 build yet, so both targets compile against their 1.6 DLLs. -->
     <Reference Include="BadHygiene">
       <HintPath>..\..\..\..\..\..\workshop\content\294100\836308268\1.6\Assemblies\BadHygiene.dll</HintPath>
       <Private>false</Private>

@@ -4,8 +4,17 @@
   <!-- Declaring loadFolders stops RimWorld loading the mod root implicitly, so "/" is what keeps Languages/. -->
   <v1.6>
     <li>/</li>
+    <li>Common</li>
     <li>1.6</li>
     <li IfModActive="syrchalis.processor.framework">ProcessorFramework</li>
+    <li IfModActive="syrchalis.processor.framework">ProcessorFramework/1.6</li>
   </v1.6>
+  <v1.7>
+    <li>/</li>
+    <li>Common</li>
+    <li>1.7</li>
+    <li IfModActive="syrchalis.processor.framework">ProcessorFramework</li>
+    <li IfModActive="syrchalis.processor.framework">ProcessorFramework/1.7</li>
+  </v1.7>
 
 </loadFolders>
